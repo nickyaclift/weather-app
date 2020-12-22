@@ -92,12 +92,16 @@ let timePlaceholder = document.querySelector(".time");
 timePlaceholder.innerHTML = `${hours}:${minutes}`;
 
 /// Add a search engine, when searching for a city (i.e. Paris), display the city name on the page after the user submits the form.
+// Open Weather API - scrape temp, precip, humidity data
+
 function handleSearch(event) {
   event.preventDefault();
-  let input = document.querySelector(".form-control");
-  console.log(input.value);
-  let search = document.querySelector(".location");
-  search.innerHTML = `${input.value}`;
+  let city = document.querySelector(".form-control");
+  let apiKey = "a05f0202382b8935188265308a3e5140";
+  let apiUnits = "metric";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&APPID=${apiKey}&units=${apiUnits}`;
+  axios.get(apiUrl).then(showTemperature);
+  axios.get(apiUrl).then(showLocation);
 }
 
 let form = document.querySelector("form");
@@ -106,28 +110,62 @@ form.addEventListener("submit", handleSearch);
 /// Using search button spyglass
 function handleSearchButton(event) {
   event.preventDefault();
-  let input = document.querySelector(".form-control");
-  console.log(input.value);
-  let search = document.querySelector(".location");
-  search.innerHTML = `${input.value}`;
+  let city = document.querySelector(".form-control");
+  let apiKey = "a05f0202382b8935188265308a3e5140";
+  let apiUnits = "metric";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&APPID=${apiKey}&units=${apiUnits}`;
+  axios.get(apiUrl).then(showTemperature);
+  axios.get(apiUrl).then(showLocation);
 }
 
 let searchButton = document.querySelector(".search-button");
-form.addEventListener("click", handleSearchButton);
+searchButton.addEventListener("click", handleSearchButton);
 
-// Display a fake temperature (i.e 17) in Celsius and add a link to convert it to Fahrenheit. When clicking on it, it should convert the temperature to Fahrenheit. When clicking on Celsius, it should convert it back to Celsius.
-function celsius(event) {
-  event.preventDefault();
-  let temperature = document.querySelector(".temperature");
-  temperature.innerHTML = "11";
-}
-function fahrenheit(event) {
-  event.preventDefault();
-  let temperature = document.querySelector(".temperature");
-  temperature.innerHTML = "52";
+/// Fetch data from API
+function showTemperature(response) {
+  let temperature = Math.round(response.data.main.temp);
+  let temperaturePlaceholder = document.querySelector(".temperature");
+  temperaturePlaceholder.innerHTML = `${temperature}°C`;
+  let description = response.data.weather[0].main;
+  let descriptionPlaceholder = document.querySelector(".weatherDescription");
+  descriptionPlaceholder.innerHTML = `${description}`;
+  let humidity = response.data.main.humidity;
+  let humuidityPlaceholder = document.querySelector(".humidityValue");
+  humuidityPlaceholder.innerHTML = `Humidity: ${humidity}%`;
+  let windSpeed = response.data.wind.speed;
+  let windPlaceholder = document.querySelector(".windSpeed");
+  windPlaceholder.innerHTML = `Wind Speed: ${windSpeed}m/s`;
 }
 
-let celsiusButton = document.querySelector(".degrees");
-celsiusButton.addEventListener("click", celsius);
-let fahrenheitButton = document.querySelector(".fahrenheit");
-fahrenheitButton.addEventListener("click", fahrenheit);
+/// Use My Location button
+function showPosition(position) {
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
+  let apiKey = "a05f0202382b8935188265308a3e5140";
+  let apiUnits = "metric";
+  let apiUrl = `https:api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${apiUnits}`;
+  axios.get(apiUrl).then(showTemperature);
+  axios.get(apiUrl).then(showLocation);
+}
+function userLocation(event) {
+  navigator.geolocation.getCurrentPosition(showPosition);
+}
+let locationButton = document.querySelector(".marker-location");
+locationButton.addEventListener("click", userLocation);
+
+function showLocation(response) {
+  let apiLocation = response.data.name;
+  let cityPlaceholder = document.querySelector(".location");
+  cityPlaceholder.innerHTML = `${apiLocation}`;
+  console.log(apiLocation);
+}
+
+function search(city) {
+  let apiKey = "a05f0202382b8935188265308a3e5140";
+  let apiUnits = "metric";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${apiKey}&units=${apiUnits}`;
+  axios.get(apiUrl).then(showTemperature);
+  axios.get(apiUrl).then(showLocation);
+}
+
+search("London");

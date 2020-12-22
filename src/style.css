@@ -22,6 +22,7 @@ h2 {
 }
 .location {
   text-transform: uppercase;
+  text-align: center;
 }
 .search {
   text-align: left;
@@ -64,15 +65,8 @@ h5 {
   font-size: 30px;
   font-style: normal;
 }
-.degrees,
-.fahrenheit,
+
 .tempUnits {
-  text-decoration: none;
-  font-size: 20px;
-  top: 0;
-  vertical-align: text-top;
-  color: #0ec4e9;
-}
-.tempUnits {
-  color: black;
+  font-size: 30px;
+  font-style: normal;
 }
