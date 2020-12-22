@@ -1,0 +1,78 @@
+body {
+  margin: 10px 0px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: lighter;
+  text-align: center;
+}
+
+h1 {
+  color: #0ec4e9;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+h2 {
+  margin: 0 auto;
+}
+.today {
+  margin: 8px 0px;
+}
+.city {
+  line-height: 15px;
+  text-align: left;
+}
+.location {
+  text-transform: uppercase;
+}
+.search {
+  text-align: left;
+}
+.form-control {
+  padding: 16px;
+  font-size: 20px;
+}
+.fas {
+  font-size: 30px;
+}
+
+.days {
+  margin: 0px 2px;
+
+  text-align: center;
+}
+
+.card-header {
+  font-size: 17px;
+  font-weight: 900;
+}
+.btn-info {
+  margin: 0px 0px 16px 0px;
+}
+.weather-icon {
+  text-align: center;
+  margin: 0 auto;
+  color: #0ec4e9;
+}
+.weather-today {
+  font-size: 70px;
+}
+h5 {
+  text-align: center;
+  font-style: italic;
+  font-size: 20px;
+}
+.temperature {
+  font-size: 30px;
+  font-style: normal;
+}
+.degrees,
+.fahrenheit,
+.tempUnits {
+  text-decoration: none;
+  font-size: 20px;
+  top: 0;
+  vertical-align: text-top;
+  color: #0ec4e9;
+}
+.tempUnits {
+  color: black;
+}
