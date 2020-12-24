@@ -70,3 +70,16 @@ h5 {
   font-size: 30px;
   font-style: normal;
 }
+.open-source {
+  text-align: left;
+  margin-left: 17%;
+}
+.git-hub,
+.linkedin {
+  text-decoration: none;
+  font-weight: 400;
+}
+.git-hub:hover,
+.linkedin:hover {
+  text-decoration: underline;
+}
