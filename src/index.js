@@ -165,6 +165,42 @@ function showLocation(response) {
   let cityPlaceholder = document.querySelector(".location");
   cityPlaceholder.innerHTML = `${apiLocation}`;
 }
+
+// Display Forecast (5 day / 3 hour forecast)
+function formatHours(timestamp) {
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  return `${hours}:${minutes}`;
+}
+
+// Forecast Icons
+
+function displayForecast(response) {
+  let forecastElement = document.querySelector("#forecast");
+  let temperature = Math.round(response.data.list[0].main.temp);
+  let time = formatHours(response.data.list[0].dt * 1000);
+  // let iconValue = response.data.list[0].weather[0].icon;
+
+  forecastElement.innerHTML = `
+  <div class="col-sm-2">
+  <div class="card border-info mb-3">
+  <div class="card-header">${time}</div>
+  <div class="card-body">
+  <h5 class="card-title weather-icon">
+  <i class="fas fa-" id="forecast-icon"></i>
+  </h5>
+  <p class="card-text"><strong>${temperature}°C</strong></p>
+  </div>
+  </div>
+  </div>`;
+}
 // Default Location of London
 function search(city) {
   let apiKey = "a05f0202382b8935188265308a3e5140";
@@ -173,6 +209,10 @@ function search(city) {
   axios.get(apiUrl).then(showTemperature);
   axios.get(apiUrl).then(showLocation);
   axios.get(apiUrl).then(showIcon);
+
+  let forecastApiURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&APPID=${apiKey}&units=${apiUnits}`;
+  axios.get(forecastApiURL).then(displayForecast);
+  console.log(forecastApiURL);
 }
 
 // Show weather icons
