@@ -70,18 +70,26 @@ h5 {
   font-size: 30px;
   font-style: normal;
 }
-.change-units {
-  color: black;
+.change-units,
+.units {
   text-decoration: none;
   font-size: 15px;
   vertical-align: top;
   line-height: 1.2;
-  color: #0ec4e9;
   font-style: normal;
+  color: #0ec4e9;
 }
 .change-units:hover {
   text-decoration: underline;
   color: black;
+}
+
+.active {
+  color: hsl(190, 89%, 48%, 0%);
+}
+.weather .active:hover {
+  color: hsl(190, 89%, 48%, 0%);
+  cursor: default;
 }
 .open-source {
   text-align: left;

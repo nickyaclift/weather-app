@@ -125,9 +125,10 @@ searchButton.addEventListener("click", handleSearchButton);
 
 /// Fetch data from API
 function showTemperature(response) {
-  let temperature = Math.round(response.data.main.temp);
+  celsuisTemp = Math.round(response.data.main.temp);
+
   let temperaturePlaceholder = document.querySelector(".temperature");
-  temperaturePlaceholder.innerHTML = `${temperature}°C`;
+  temperaturePlaceholder.innerHTML = `${celsuisTemp}°C`;
   let description = response.data.weather[0].main;
   let descriptionPlaceholder = document.querySelector(".weatherDescription");
   descriptionPlaceholder.innerHTML = `${description}`;
@@ -170,8 +171,6 @@ function search(city) {
   axios.get(apiUrl).then(showLocation);
   axios.get(apiUrl).then(showIcon);
 }
-
-search("London");
 
 // Show weather icons
 
@@ -222,3 +221,31 @@ function showIcon(response) {
     iconToday.setAttribute("class", "fas fa-stream weather-icon weather-today");
   }
 }
+
+// Change weather to Fahrenheit
+function displayFahrenheit(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector(".temperature");
+  let fahrenheitTemperature = Math.round((celsuisTemp * 9) / 5 + 32);
+  temperatureElement.innerHTML = `${fahrenheitTemperature}°F`;
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+}
+
+function displayCelsius(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector(".temperature");
+  temperatureElement.innerHTML = `${celsuisTemp}°C`;
+  fahrenheitLink.classList.remove("active");
+  celsiusLink.classList.add("active");
+}
+
+let fahrenheitLink = document.querySelector("#fahrenheit");
+fahrenheitLink.addEventListener("click", displayFahrenheit);
+
+let celsiusLink = document.querySelector("#celsius");
+celsiusLink.addEventListener("click", displayCelsius);
+
+let celsuisTemp = null;
+
+search("London");
