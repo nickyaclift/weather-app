@@ -192,24 +192,26 @@ function formatHours(timestamp) {
 
 function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
-  let temperature = Math.round(response.data.list[0].main.temp);
-  let time = formatHours(response.data.list[0].dt * 1000);
-  let iconValue = response.data.list[0].weather[0].icon;
-  //let iconPlaceholder = document.querySelector(#forecast);
-  console.log(iconValue);
+  //let iconValue = forecast.weather[0].icon;
+  forecastElement.innerHTML = null;
+  let forecast = null;
 
-  forecastElement.innerHTML = `
+  for (let index = 0; index < 6; index++) {
+    let forecast = response.data.list[index];
+
+    forecastElement.innerHTML += `
   <div class="col-sm-2">
   <div class="card border-info mb-3">
-  <div class="card-header">${time}</div>
+  <div class="card-header">${formatHours(forecast.dt * 1000)}</div>
   <div class="card-body">
   <h5 class="card-title weather-icon">
-  <i class="fas fa-" id="forecast"></i>
+  <i class="fas fa-"></i>
   </h5>
-  <p class="card-text"><strong>${temperature}°C</strong></p>
+  <p class="card-text"><strong>${Math.round(forecast.main.temp)}°C</strong></p>
   </div>
   </div>
   </div>`;
+  }
 }
 // Default Location of London
 function search(city) {
