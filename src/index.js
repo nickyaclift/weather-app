@@ -138,6 +138,9 @@ function showTemperature(response) {
   let windSpeed = response.data.wind.speed;
   let windPlaceholder = document.querySelector(".windSpeed");
   windPlaceholder.innerHTML = `Wind Speed: ${windSpeed}m/s`;
+
+  fahrenheitLink.classList.remove("active");
+  celsiusLink.classList.add("active");
 }
 
 /// Use My Location button
