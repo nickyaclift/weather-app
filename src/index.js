@@ -7,7 +7,6 @@ if (hours < 10) {
   hours = `0${hours}`;
 }
 // console.log(hours);
-
 let minutes = date.getMinutes();
 if (minutes < 10) {
   minutes = `0${minutes}`;
@@ -103,6 +102,9 @@ function handleSearch(event) {
   axios.get(apiUrl).then(showTemperature);
   axios.get(apiUrl).then(showLocation);
   axios.get(apiUrl).then(showIcon);
+
+  let forecastApiURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city.value}&APPID=${apiKey}&units=${apiUnits}`;
+  axios.get(forecastApiURL).then(displayForecast);
 }
 
 let form = document.querySelector("form");
@@ -118,6 +120,9 @@ function handleSearchButton(event) {
   axios.get(apiUrl).then(showTemperature);
   axios.get(apiUrl).then(showLocation);
   axios.get(apiUrl).then(showIcon);
+
+  let forecastApiURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city.value}&APPID=${apiKey}&units=${apiUnits}`;
+  axios.get(forecastApiURL).then(displayForecast);
 }
 
 let searchButton = document.querySelector(".search-button");
@@ -153,6 +158,9 @@ function showPosition(position) {
   axios.get(apiUrl).then(showTemperature);
   axios.get(apiUrl).then(showLocation);
   axios.get(apiUrl).then(showIcon);
+
+  let forecastApiURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&APPID=${apiKey}&units=${apiUnits}`;
+  axios.get(forecastApiURL).then(displayForecast);
 }
 function userLocation(event) {
   navigator.geolocation.getCurrentPosition(showPosition);
@@ -186,7 +194,9 @@ function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
   let temperature = Math.round(response.data.list[0].main.temp);
   let time = formatHours(response.data.list[0].dt * 1000);
-  // let iconValue = response.data.list[0].weather[0].icon;
+  let iconValue = response.data.list[0].weather[0].icon;
+  //let iconPlaceholder = document.querySelector(#forecast);
+  console.log(iconValue);
 
   forecastElement.innerHTML = `
   <div class="col-sm-2">
@@ -194,7 +204,7 @@ function displayForecast(response) {
   <div class="card-header">${time}</div>
   <div class="card-body">
   <h5 class="card-title weather-icon">
-  <i class="fas fa-" id="forecast-icon"></i>
+  <i class="fas fa-" id="forecast"></i>
   </h5>
   <p class="card-text"><strong>${temperature}°C</strong></p>
   </div>
@@ -212,7 +222,6 @@ function search(city) {
 
   let forecastApiURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&APPID=${apiKey}&units=${apiUnits}`;
   axios.get(forecastApiURL).then(displayForecast);
-  console.log(forecastApiURL);
 }
 
 // Show weather icons
