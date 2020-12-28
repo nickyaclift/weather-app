@@ -209,7 +209,7 @@ function showIcon(iconValue) {
     return "fas fa-cloud-rain weather-icon weather-today";
   }
   if (iconValue === "10d" || iconValue === "10n") {
-    return "fas fa-cloud-showers weather-icon weather-today";
+    return "fas fa-cloud-showers-heavy weather-icon weather-today";
   }
   if (iconValue === "11d" || iconValue === "11n") {
     return "fas fa-poo-storm weather-icon weather-today";
