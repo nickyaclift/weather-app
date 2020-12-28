@@ -60,6 +60,11 @@ h2 {
   font-size: 80px;
   line-height: 100px;
 }
+.forecast-icon {
+  font-size: 40px;
+  margin: 0 auto;
+  line-height: 40px;
+}
 
 h5 {
   text-align: center;
